@@ -1,2 +1,3 @@
 # PROYECTO2_ALGORITMOS
 ESTRUCTURAS Y MANEJOS DE ARCHIVOS EN PYTHON Y C++.
+Este programa es como una especie de 'libreta de productos' en la computadora. Puedes usarlo para agregar, buscar y modificar información de productos. Por ejemplo, puedes registrar detalles como el nombre, precio, cantidad en existencia, si el producto está aprobado o reprobado, y si tiene algún descuento. Además, se asegura de que la información se mantenga guardada incluso cuando apagas el programa, de modo que puedes seguir trabajando con la misma información la próxima vez que lo inicies. Es útil si deseas llevar un registro de los productos que tienes o gestionar una lista de productos en tu computadora
