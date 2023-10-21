@@ -1,6 +1,6 @@
-# Mi Programa de Gestión de Productos en C++
+# Mi Programa de Gestión de Productos en C++ y Phyton.
 
-Este es un programa que he desarrollado en C++ para gestionar productos. Con él, puedo agregar, buscar y modificar productos, y también guardar los datos en un archivo de texto.
+Este es un programa que he desarrollado en C++ y Phyton para gestionar productos. Con él, puedo agregar, buscar y modificar productos, y también guardar los datos en un archivo de texto.
 
 ## Clases
 
