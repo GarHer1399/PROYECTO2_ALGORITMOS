@@ -1,113 +1,191 @@
-class Producto:
-    def __init__(self, codigo, nombre, precio, existencia, estado, descuento):
-        self.codigo = codigo
-        self.nombre = nombre
-        self.precio = precio
-        self.existencia = existencia
-        self.estado = estado
-        self.descuento = descuento
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <cstdlib>
 
-def agregar_producto(productos):
-    codigo = input("Código: ")
-    
-    # Verificar si el código ya existe
-    for p in productos:
-        if p.codigo == codigo:
-            print("El código ya existe. No es Valido.")
-            return
-    
-    nombre = input("Nombre: ")
-    precio = float(input("Precio: "))
-    existencia = int(input("Numero de Existencia: "))
-    estado = input("Estado (A = Aprobado, R = Reprobado): ")
-    descuento = float(input("Descuento: "))
-    producto = Producto(codigo, nombre, precio, existencia, estado, descuento)
-    productos.append(producto)
-    print("Producto agregado.")
+using namespace std;
 
-def buscar_producto(productos):
-    consulta = input("Ingrese el código o nombre del producto a buscar: ")
-    print("Resultado :")
-    
-    for producto in productos:
-        if consulta in [producto.codigo, producto.nombre]:
-            print("Código:", producto.codigo)
-            print("Nombre:", producto.nombre)
-            print("Precio:", producto.precio)
-            print("Existencia:", producto.existencia)
-            print("Estado:", producto.estado)
-            print("Descuento:", producto.descuento)
-            print("-------------------")
+class Producto {
+public:
+    string codigo;
+    string nombre;
+    double precio;
+    int existencia;
+    char estado;
+    double descuento;
 
-def modificar_producto(productos):
-    codigo = input("Ingrese el código del producto que desea editar: ")
-    
-    for producto in productos:
-        if producto.codigo == codigo:
-            print("Producto encontrado. Edite los datos:")
-            producto.nombre = input("Nombre: ")
-            producto.precio = float(input("Precio: "))
-            producto.existencia = int(input("Existencia: "))
-            estado = input("Estado (A = Aprobado, R = Reprobado): ")
-            
-            if estado in ['A', 'R']:
-                producto.estado = estado
-            else:
-                print("El estado debe ser 'A' o 'R'. No se ha modificado el producto.")
-                return
-            
-            producto.descuento = float(input("Descuento: "))
-            print("Producto modificado con éxito.")
-            return
-    
-    print("Producto no encontrado.")
+    Producto(string codigo, string nombre, double precio, int existencia, char estado, double descuento)
+        : codigo(codigo), nombre(nombre), precio(precio), existencia(existencia), estado(estado), descuento(descuento) {}
+};
 
-def guardar_productos(productos):
-    with open("productos.txt", "w") as file:
-        for producto in productos:
-            file.write(f"{producto.codigo},{producto.nombre},{producto.precio},{producto.existencia},{producto.estado},{producto.descuento}\n")
+void agregar_producto(vector<Producto>& productos) {
+    string codigo, nombre;
+    double precio, descuento;
+    int existencia;
+    char estado;
 
-def cargar_productos():
-    productos = []
-    try:
-        with open("productos.txt", "r") as file:
-            codigo_existente = set()  # Conjunto para almacenar los códigos existentes
-            for line in file:
-                codigo, nombre, precio, existencia, estado, descuento = line.strip().split(",")
-                
-                if codigo not in codigo_existente:
-                    producto = Producto(codigo, nombre, float(precio), int(existencia), estado, float(descuento))
-                    productos.append(producto)
-                    codigo_existente.add(codigo)  # Agregar el código al conjunto
-    except FileNotFoundError:
-        pass
-    
-    return productos
+    cout << "Codigo: ";
+    cin >> codigo;
 
-def main():
-    productos = cargar_productos()
-    
-    while True:
-        print("Menú:")
-        print("1. Agregar producto")
-        print("2. Buscar producto")
-        print("3. Modificar datos de un producto")
-        print("4. Salir")
-        opcion = int(input("Ingrese una opción: "))
-        
-        if opcion == 1:
-            agregar_producto(productos)
-            guardar_productos(productos)
-        elif opcion == 2:
-            buscar_producto(productos)
-        elif opcion == 3:
-            modificar_producto(productos)
-            guardar_productos(productos)
-        elif opcion == 4:
-            print("Saliendo del programa.")
-            break
-        else:
-            print("Opción no válida. Intente de nuevo.")
+    for (int i = 0; i < productos.size(); i++) {
+        if (productos[i].codigo == codigo) {
+            cout << "El codigo ya existe. No es valido." << endl;
+            return;
+        }
+    }
 
-if __name__ == "__main__":
-    main()
+    cout << "Nombre: ";
+    cin >> nombre;
+
+    cout << "Precio: ";
+    string precioStr;
+    cin >> precioStr;
+    precio = atof(precioStr.c_str());
+
+    cout << "Existencia: ";
+    cin >> existencia;
+
+    cout << "Estado (A = Aprobado, R = Reprobado): ";
+    cin >> estado;
+
+    if (estado != 'A' && estado != 'R') {
+        cout << "El estado debe ser 'A' o 'R'. No se ha modificado el producto." << endl;
+        return;
+    }
+
+    cout << "Descuento: ";
+    cin >> descuento;
+
+    productos.push_back(Producto(codigo, nombre, precio, existencia, estado, descuento));
+    cout << "Producto agregado." << endl;
+}
+
+void buscar_producto(const vector<Producto>& productos) {
+    string consulta;
+    cout << "Ingrese el codigo o nombre del producto a buscar: ";
+    cin >> consulta;
+
+    cout << "Resultado:" << endl;
+
+    for (int i = 0; i < productos.size(); i++) {
+        const Producto& producto = productos[i];
+        if (consulta == producto.codigo || consulta == producto.nombre) {
+            cout << "Codigo: " << producto.codigo << endl;
+            cout << "Nombre: " << producto.nombre << endl;
+            cout << "Precio: " << producto.precio << endl;
+            cout << "Existencia: " << producto.existencia << endl;
+            cout << "Estado: " << producto.estado << endl;
+            cout << "Descuento: " << producto.descuento << endl;
+            cout << "-------------------" << endl;
+        }
+    }
+}
+
+void modificar_producto(vector<Producto>& productos) {
+    string codigo;
+    cout << "Ingrese el codigo del producto que desea editar: ";
+    cin >> codigo;
+
+    for (int i = 0; i < productos.size(); i++) {
+        if (productos[i].codigo == codigo) {
+            cout << "Producto encontrado. Edite los datos:" << endl;
+
+            cout << "Nombre: ";
+            cin >> productos[i].nombre;
+
+            cout << "Precio: ";
+            string precioStr;
+            cin >> precioStr;
+            productos[i].precio = atof(precioStr.c_str());
+
+            cout << "Existencia: ";
+            cin >> productos[i].existencia;
+
+            cout << "Estado (A = Aprobado, R = Reprobado): ";
+            cin >> productos[i].estado;
+
+            if (productos[i].estado != 'A' && productos[i].estado != 'R') {
+                cout << "El estado debe ser 'A' o 'R'. No se ha modificado el producto." << endl;
+                return;
+            }
+
+            cout << "Descuento: ";
+            cin >> productos[i].descuento;
+
+            cout << "Producto modificado con exito." << endl;
+            return;
+        }
+    }
+
+    cout << "Producto no encontrado." << endl;
+}
+
+void guardar_productos(const vector<Producto>& productos) {
+    ofstream file("productos.txt");
+
+    for (int i = 0; i < productos.size(); i++) {
+        const Producto& producto = productos[i];
+        file << producto.codigo << "," << producto.nombre << "," << producto.precio << ","
+             << producto.existencia << "," << producto.estado << "," << producto.descuento << "\n";
+    }
+}
+
+vector<Producto> cargar_productos() {
+    vector<Producto> productos;
+    ifstream file("productos.txt");
+
+    if (file.is_open()) {
+        string codigo, nombre, precioStr, estado, descuentoStr, existenciaStr;
+        double precio, descuento;
+        int existencia;
+
+        while (getline(file, codigo, ',') &&
+               getline(file, nombre, ',') &&
+               getline(file, precioStr, ',') &&
+               getline(file, existenciaStr, ',') &&
+               getline(file, estado, ',') &&
+               getline(file, descuentoStr)) {
+            precio = atof(precioStr.c_str());
+            descuento = atof(descuentoStr.c_str());
+            existencia = atoi(existenciaStr.c_str());
+            productos.push_back(Producto(codigo, nombre, precio, existencia, estado[0], descuento));
+        }
+    }
+
+    return productos;
+}
+
+int main() {
+    vector<Producto> productos = cargar_productos();
+
+    while (true) {
+        cout << "Menu:" << endl;
+        cout << "1. Agregar producto" << endl;
+        cout << "2. Buscar producto" << endl;
+        cout << "3. Modificar datos de un producto" << endl;
+        cout << "4. Salir" << endl;
+
+        int opcion;
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+
+        if (opcion == 1) {
+            agregar_producto(productos);
+            guardar_productos(productos);
+        } else if (opcion == 2) {
+            buscar_producto(productos);
+        } else if (opcion == 3) {
+            modificar_producto(productos);
+            guardar_productos(productos);
+        } else if (opcion == 4) {
+            cout << "Saliendo del programa." << endl;
+            break;
+        } else {
+            cout << "Opcion no valida. Intente de nuevo." << endl;
+        }
+    }
+
+    return 0;
+}
